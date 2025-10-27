@@ -1,4 +1,5 @@
 #include <SDL3/SDL.h>
+#include <SDL3_image/SDL_image.h>
 #include <iostream>
 
 #define endl "\n";
@@ -8,7 +9,7 @@ const int WINDOW_HEIGHT = 480;
 
 int main() {
     if (!SDL_Init(SDL_INIT_VIDEO)) {
-        std::cerr << "failed to initiallize SDL!" << SDL_GetError() << endl; 
+        std::cerr << "failed to initialize SDL!" << SDL_GetError() << endl; 
         return 1;
     }
 
@@ -24,6 +25,16 @@ int main() {
 
     if (!renderer) {
         std::cerr << "Failed to create renderer!" << SDL_GetError() << endl;
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return 1;
+    }
+
+    SDL_Texture *texture = IMG_LoadTexture(renderer, "sprites/tree-01.jpg");
+    
+    if (!texture) {
+        std::cerr << "Failed to load texture!" << SDL_GetError() << endl;
+        SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
         SDL_Quit();
         return 1;
@@ -62,7 +73,7 @@ int main() {
         
         SDL_SetRenderDrawColor(renderer, 30, 30, 30, 255);
         SDL_RenderClear(renderer);
-
+        SDL_RenderTexture(renderer, texture, nullptr, nullptr);
         SDL_SetRenderDrawColor(renderer, 255, 50, 50, 255);
         SDL_FRect rect = {x, y, 200, 150};
         
