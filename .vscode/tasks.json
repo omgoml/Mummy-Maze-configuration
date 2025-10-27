@@ -1,0 +1,22 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build with SDL3",
+      "type": "shell",
+      "command": "g++",
+      "args": [
+        "${workspaceFolder}/src/main.cpp",
+        "-I", "${workspaceFolder}/include",
+        "-L", "${workspaceFolder}/lib",
+        "-lSDL3",
+        "-o", "${workspaceFolder}/main.exe"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"]
+    }
+  ]
+}
